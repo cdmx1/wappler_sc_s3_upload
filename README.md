@@ -1,4 +1,3 @@
-```
 # AWS S3 Signed Upload
 
 ## Overview
@@ -15,4 +14,3 @@ This functionality enables the generation of signed URLs for uploading files to 
 - **Access Key ID**: Enter the AWS access key ID.
 - **Secret Access Key**: Enter the AWS secret access key.
 - **Region**: Enter the AWS region. Defaults to 'us-east-1'.
-```
