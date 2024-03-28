@@ -1,0 +1,94 @@
+[
+  {
+    "type": "awsS3SignedUpload",
+    "module": "aws",
+    "action": "aws_s3_signed_upload",
+    "groupTitle": "File Management",
+    "groupIcon": "fas fa-cloud-upload-alt comp-exec",
+    "title": "AWS S3 Signed Upload",
+    "icon": "fas fa-cloud-upload-alt comp-exec",
+    "usedModules": {
+      "node": {
+        "@aws-sdk/client-s3": "^3.1.0",
+        "@aws-sdk/s3-request-presigner": "^3.1.0",
+        "mime-types": "^2.7.0"
+      }
+    },
+    "properties": [
+      {
+        "group": "S3 Details",
+        "variables": [
+          {
+            "name": "bucket",
+            "optionName": "bucket",
+            "title": "Bucket",
+            "type": "text",
+            "required": true,
+            "serverDataBindings": true,
+            "help": "Enter the name of the S3 bucket."
+          },
+          {
+            "name": "key",
+            "optionName": "key",
+            "title": "Key",
+            "type": "text",
+            "required": true,
+            "serverDataBindings": true,
+            "help": "Enter the key for the object in S3."
+          },
+          {
+            "name": "expires",
+            "optionName": "expires",
+            "title": "Expires In (seconds)",
+            "type": "number",
+            "required": false,
+            "defaultValue": 300,
+            "help": "Enter the expiration time for the signed URL in seconds. Defaults to 300 seconds (5 minutes)."
+          },
+          {
+            "name": "acl",
+            "optionName": "acl",
+            "title": "ACL",
+            "type": "text",
+            "required": false,
+            "serverDataBindings": true,
+            "help": "Enter the ACL for the object. If not provided, ACL will not be set."
+          }
+        ]
+      },
+      {
+        "group": "AWS Credentials",
+        "variables": [
+          {
+            "name": "accessKeyId",
+            "optionName": "accessKeyId",
+            "title": "Access Key ID",
+            "type": "text",
+            "required": true,
+            "serverDataBindings": true,
+            "help": "Enter the AWS access key ID."
+          },
+          {
+            "name": "secretAccessKey",
+            "optionName": "secretAccessKey",
+            "title": "Secret Access Key",
+            "type": "text",
+            "required": true,
+            "serverDataBindings": true,
+            "help": "Enter the AWS secret access key."
+          },
+          {
+            "name": "region",
+            "optionName": "region",
+            "title": "Region",
+            "type": "text",
+            "required": false,
+            "serverDataBindings": true,
+            "defaultValue": "us-east-1",
+            "help": "Enter the AWS region. Defaults to 'us-east-1'."
+          }
+        ]
+      }
+    ]
+  }
+]
