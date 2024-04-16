@@ -1,6 +1,7 @@
 const { S3 } = require('@aws-sdk/client-s3');
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const { PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
+const mime = require('mime-types');
 
 exports.aws_s3_signed_upload = async function (options) {
     const Bucket = this.parseRequired(options.bucket, 'string', 'Bucket is required.');
