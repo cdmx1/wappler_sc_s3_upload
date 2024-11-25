@@ -12,8 +12,13 @@ exports.aws_s3_signed_upload = async function (options) {
     const accessKeyId = this.parseRequired(options.accessKeyId, 'string', 'AccessKeyId is required.');
     const secretAccessKey = this.parseRequired(options.secretAccessKey, 'string', 'SecretAccessKey is required.');
     const region = this.parseOptional(options.region, 'string', 'us-east-1');
-    const endpoint = `s3.${region}.amazonaws.com`;
-    const s3 = new S3({ endpoint: 'https://' + endpoint, credentials: { accessKeyId, secretAccessKey }, region, signatureVersion: 'v4' });
+    let endpoint = `https://s3.${region}.amazonaws.com`;
+    let config = { endpoint: endpoint, credentials: { accessKeyId, secretAccessKey }, region, signatureVersion: 'v4' };
+    if (options.endpoint != "" && options.endpoint != "undefined") {
+        config.endpoint = options.endpoint;
+        config.forcePathStyle = true;
+    }
+    const s3 = new S3(config);
     const command = new PutObjectCommand({ Bucket, Key, ContentType, ACL });
     return getSignedUrl(s3, command, { expiresIn });
 }
@@ -25,8 +30,13 @@ exports.aws_s3_signed_download = async function (options) {
     const accessKeyId = this.parseRequired(options.accessKeyId, 'string', 'AccessKeyId is required.');
     const secretAccessKey = this.parseRequired(options.secretAccessKey, 'string', 'SecretAccessKey is required.');
     const region = this.parseOptional(options.region, 'string', 'us-east-1');
-    const endpoint = `s3.${region}.amazonaws.com`;
-    const s3 = new S3({ endpoint: 'https://' + endpoint, credentials: { accessKeyId, secretAccessKey }, region, signatureVersion: 'v4' });
+    let endpoint = `https://s3.${region}.amazonaws.com`;
+    let config = { endpoint: endpoint, credentials: { accessKeyId, secretAccessKey }, region, signatureVersion: 'v4' };
+    if (options.endpoint != "" && options.endpoint != "undefined") {
+        config.endpoint = options.endpoint;
+        config.forcePathStyle = true;
+    }
+    const s3 = new S3(config);
     const command = new GetObjectCommand({ Bucket, Key });
     return getSignedUrl(s3, command, { expiresIn });
 }
