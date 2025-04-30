@@ -76,7 +76,7 @@ exports.aws_s3_put_object = async function (options) {
 
         let result = await s3.send(command);
         result.Location = endpoint;
-        result.key = key;
+        result.Key = Key;
 
 
         return result;
