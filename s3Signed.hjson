@@ -1,11 +1,11 @@
 [
   {
-    "type": "awsS3SignedUpload",
-    "module": "awsS3Signed",
-    "action": "aws_s3_signed_upload",
+    "type": "s3SignedUpload",
+    "module": "s3Signed",
+    "action": "s3_signed_upload",
     "groupTitle": "File Management",
     "groupIcon": "fas fa-cloud-upload-alt comp-exec",
-    "title": "AWS S3 Signed Upload - @@var(name)@@",
+    "title": "S3 Signed Upload - @@var(name)@@",
     "icon": "fas fa-cloud-upload-alt comp-exec",
     "usedModules": {
       "node": {
@@ -34,11 +34,11 @@
         ]
       },
       {
-        "group": "AWS Credentials",
+        "group": "S3 Credentials",
         "variables": [
-          { "name": "accessKeyId", "optionName": "accessKeyId", "title": "Access Key ID", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the AWS access key ID." },
-          { "name": "secretAccessKey", "optionName": "secretAccessKey", "title": "Secret Access Key", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the AWS secret access key." },
-          { "name": "region", "optionName": "region", "title": "Region", "type": "text", "required": false, "serverDataBindings": true, "defaultValue": "us-east-1", "help": "Enter the AWS region. Defaults to 'us-east-1'." }
+          { "name": "accessKeyId", "optionName": "accessKeyId", "title": "Access Key ID", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the S3 provider access key ID." },
+          { "name": "secretAccessKey", "optionName": "secretAccessKey", "title": "Secret Access Key", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the S3 provider secret access key." },
+          { "name": "region", "optionName": "region", "title": "Region", "type": "text", "required": false, "serverDataBindings": true, "defaultValue": "us-east-1", "help": "Enter the S3 provider region. Defaults to 'us-east-1'." }
         ]
       },
       {
@@ -50,12 +50,12 @@
     ]
   },
   {
-    "type": "awsS3SignedDownload",
-    "module": "awsS3Signed",
-    "action": "aws_s3_signed_download",
+    "type": "s3SignedDownload",
+    "module": "s3Signed",
+    "action": "s3_signed_download",
     "groupTitle": "File Management",
     "groupIcon": "fas fa-cloud-download-alt comp-exec",
-    "title": "AWS S3 Signed Download - @@var(name)@@",
+    "title": "S3 Signed Download - @@var(name)@@",
     "icon": "fas fa-cloud-download-alt comp-exec",
     "usedModules": {
       "node": {
@@ -83,11 +83,11 @@
         ]
       },
       {
-        "group": "AWS Credentials",
+        "group": "S3 Credentials",
         "variables": [
-          { "name": "accessKeyId", "optionName": "accessKeyId", "title": "Access Key ID", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the AWS access key ID." },
-          { "name": "secretAccessKey", "optionName": "secretAccessKey", "title": "Secret Access Key", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the AWS secret access key." },
-          { "name": "region", "optionName": "region", "title": "Region", "type": "text", "required": false, "serverDataBindings": true, "defaultValue": "us-east-1", "help": "Enter the AWS region. Defaults to 'us-east-1'." }
+          { "name": "accessKeyId", "optionName": "accessKeyId", "title": "Access Key ID", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the S3 provider access key ID." },
+          { "name": "secretAccessKey", "optionName": "secretAccessKey", "title": "Secret Access Key", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the S3 provider secret access key." },
+          { "name": "region", "optionName": "region", "title": "Region", "type": "text", "required": false, "serverDataBindings": true, "defaultValue": "us-east-1", "help": "Enter the S3 provider region. Defaults to 'us-east-1'." }
         ]
       },
       {
@@ -99,12 +99,12 @@
     ]
   },
   {
-    "type": "awsS3PutObject",
-    "module": "awsS3Signed",
-    "action": "aws_s3_put_object",
+    "type": "s3PutObject",
+    "module": "s3Signed",
+    "action": "s3_put_object",
     "groupTitle": "File Management",
     "groupIcon": "fas fa-cloud-upload-alt comp-exec",
-    "title": "AWS S3 Put file - @@var(name)@@",
+    "title": "S3 Put file - @@var(name)@@",
     "icon": "fas fa-cloud-upload-alt comp-exec",
     "usedModules": {
       "node": {
@@ -134,11 +134,11 @@
         ]
       },
       {
-        "group": "AWS Credentials",
+        "group": "S3 Credentials",
         "variables": [
-          { "name": "accessKeyId", "optionName": "accessKeyId", "title": "Access Key ID", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the AWS access key ID." },
-          { "name": "secretAccessKey", "optionName": "secretAccessKey", "title": "Secret Access Key", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the AWS secret access key." },
-          { "name": "region", "optionName": "region", "title": "Region", "type": "text", "required": false, "serverDataBindings": true, "defaultValue": "us-east-1", "help": "Enter the AWS region. Defaults to 'us-east-1'." }
+          { "name": "accessKeyId", "optionName": "accessKeyId", "title": "Access Key ID", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the S3 provider access key ID." },
+          { "name": "secretAccessKey", "optionName": "secretAccessKey", "title": "Secret Access Key", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the S3 provider secret access key." },
+          { "name": "region", "optionName": "region", "title": "Region", "type": "text", "required": false, "serverDataBindings": true, "defaultValue": "us-east-1", "help": "Enter the S3 provider region. Defaults to 'us-east-1'." }
         ]
       },
       {

@@ -4,7 +4,7 @@ const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const { PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
 const mime = require('mime-types');
 
-exports.aws_s3_signed_upload = async function (options) {
+exports.s3_signed_upload = async function (options) {
     const Bucket = this.parseRequired(options.bucket, 'string', 'Bucket is required.');
     const Provider = this.parseOptional(options.provider, 'string', 'aws');
     const Key = this.parseRequired(options.key, 'string', 'Key is required.');
@@ -25,7 +25,7 @@ exports.aws_s3_signed_upload = async function (options) {
     return getSignedUrl(s3, command, { expiresIn });
 }
 
-exports.aws_s3_signed_download = async function (options) {
+exports.s3_signed_download = async function (options) {
     const Bucket = this.parseRequired(options.bucket, 'string', 'Bucket is required.');
     const Provider = this.parseOptional(options.provider, 'string', 'aws');
     const Key = this.parseRequired(options.key, 'string', 'Key is required.');
@@ -44,9 +44,7 @@ exports.aws_s3_signed_download = async function (options) {
     return getSignedUrl(s3, command, { expiresIn });
 }
 
-exports.aws_s3_put_object = async function (options) {
-    console.log("export.aws_s3_put_object", options, this.req.files);
-
+exports.s3_put_object = async function (options) {
     const File = this.parseRequired(options.file, 'string', 'File input name is required.');
     const ReqFile = this.req.files[File];
     const Bucket = this.parseRequired(options.bucket, 'string', 'Bucket is required.');

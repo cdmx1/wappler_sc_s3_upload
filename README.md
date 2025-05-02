@@ -1,7 +1,7 @@
-# AWS S3 Signed Upload
+# S3 Signed Upload and Download
 
 ## Overview
-This functionality enables the generation of signed URLs for uploading files to an Amazon S3 bucket securely. Signed URLs are URLs for objects in S3 that are valid for a limited time and can be used to upload files directly to S3 without requiring the uploader to have AWS credentials.
+This functionality enables the generation of signed URLs for uploading files to an Amazon S3 bucket securely. Signed URLs are URLs for objects in S3 that are valid for a limited time and can be used to upload files directly to S3 without requiring the uploader to have S3 credentials.
 
 Now supports uploading the file from the server-side
 
@@ -12,7 +12,7 @@ Now supports uploading the file from the server-side
 - **Expires In (seconds)**: Enter the expiration time for the signed URL in seconds. Defaults to 300 seconds (5 minutes).
 - **ACL**: Enter the Access Control List (ACL) for the object. If not provided, ACL will not be set.
 
-### AWS Credentials
-- **Access Key ID**: Enter the AWS access key ID.
-- **Secret Access Key**: Enter the AWS secret access key.
-- **Region**: Enter the AWS region. Defaults to 'us-east-1'.
+### S3 Credentials
+- **Access Key ID**: Enter the S3 provider access key ID.
+- **Secret Access Key**: Enter the s3 provider secret access key.
+- **Region**: Enter the s3 provider region. Defaults to 'us-east-1'.
