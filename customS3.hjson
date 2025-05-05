@@ -1,11 +1,11 @@
 [
   {
-    "type": "s3SignedUpload",
-    "module": "s3Signed",
+    "type": "customS3Upload",
+    "module": "customS3",
     "action": "s3_signed_upload",
     "groupTitle": "File Management",
     "groupIcon": "fas fa-cloud-upload-alt comp-exec",
-    "title": "S3 Signed Upload - @@var(name)@@",
+    "title": "Custom S3 Signed Upload - @@var(name)@@",
     "icon": "fas fa-cloud-upload-alt comp-exec",
     "usedModules": {
       "node": {
@@ -50,12 +50,12 @@
     ]
   },
   {
-    "type": "s3SignedDownload",
-    "module": "s3Signed",
+    "type": "customS3Download",
+    "module": "customS3",
     "action": "s3_signed_download",
     "groupTitle": "File Management",
     "groupIcon": "fas fa-cloud-download-alt comp-exec",
-    "title": "S3 Signed Download - @@var(name)@@",
+    "title": "Custom S3 Signed Download - @@var(name)@@",
     "icon": "fas fa-cloud-download-alt comp-exec",
     "usedModules": {
       "node": {
@@ -100,16 +100,15 @@
   },
   {
     "type": "s3PutObject",
-    "module": "s3Signed",
+    "module": "customS3",
     "action": "s3_put_object",
     "groupTitle": "File Management",
     "groupIcon": "fas fa-cloud-upload-alt comp-exec",
-    "title": "S3 Put file - @@var(name)@@",
+    "title": "Custom S3 Put file - @@var(name)@@",
     "icon": "fas fa-cloud-upload-alt comp-exec",
     "usedModules": {
       "node": {
         "@aws-sdk/client-s3": "^3.1.0",
-        "@aws-sdk/s3-request-presigner": "^3.1.0"
       }
     },
     "properties": [
