@@ -3,6 +3,7 @@ const { S3 } = require('@aws-sdk/client-s3');
 const { getSignedUrl } = require("@aws-sdk/s3-request-presigner");
 const { PutObjectCommand, GetObjectCommand } = require('@aws-sdk/client-s3');
 const mime = require('mime-types');
+const path = require('path');
 
 exports.s3_signed_upload = async function (options) {
     const Bucket = this.parseRequired(options.bucket, 'string', 'Bucket is required.');
@@ -46,11 +47,10 @@ exports.s3_signed_download = async function (options) {
 
 exports.s3_put_object = async function (options) {
     const File = this.parseRequired(options.file, 'string', 'File input name is required.');
-    const ReqFile = this.req.files[File];
     const Bucket = this.parseRequired(options.bucket, 'string', 'Bucket is required.');
     const Provider = this.parseOptional(options.provider, 'string', 'aws');
     const Key = this.parseRequired(options.key, 'string', 'Key is required.');
-    const ContentType = this.parseOptional(options.contentType, 'string', ReqFile.mimetype || 'application/octet-stream');
+    const ContentType = this.parseOptional(options.contentType, 'string', mime.lookup(Key) || 'application/octet-stream');
     const ACL = this.parseOptional(options.acl, 'string', undefined);
     const accessKeyId = this.parseRequired(options.accessKeyId, 'string', 'AccessKeyId is required.');
     const secretAccessKey = this.parseRequired(options.secretAccessKey, 'string', 'SecretAccessKey is required.');
@@ -58,6 +58,7 @@ exports.s3_put_object = async function (options) {
     const ContentDisposition = this.parseOptional(options.contentDisposition, 'string', undefined);
     let endpoint = `https://s3.${region}.amazonaws.com`;
     const forcePathStyle = this.parseOptional(options.forcePathStyle, 'boolean', false);
+    const useFilePath = this.parseOptional(options.useFilePath, 'boolean', false);
     let config = { endpoint: endpoint, credentials: { accessKeyId, secretAccessKey }, region, signatureVersion: 'v4', forcePathStyle: forcePathStyle };
     if (Provider === "custom" && options.endpoint != "" && options.endpoint != "undefined") {
         config.endpoint = options.endpoint;
@@ -66,7 +67,15 @@ exports.s3_put_object = async function (options) {
 
     if (!s3) throw new Error(`S3 provider "${provider}" doesn't exist.`);
 
-    let Body = fs.createReadStream(ReqFile.tempFilePath);
+    let filePath = path.join(process.cwd(), File); //File;
+
+    if (!useFilePath) {
+        const ReqFile = this.req.files[File];
+        filePath = ReqFile.tempFilePath;
+    }
+
+
+    let Body = fs.createReadStream(filePath);
 
 
     const command = new PutObjectCommand({ Bucket, Key, ContentType, ACL, ContentDisposition, Body });

@@ -109,6 +109,7 @@
     "usedModules": {
       "node": {
         "@aws-sdk/client-s3": "^3.1.0",
+        "mime-types": "^2.7.0"
       }
     },
     "properties": [
@@ -125,11 +126,17 @@
           { "name": "name", "optionName": "name", "title": "Name", "type": "text", "required": true, "defaultValue": "s3download", "help": "This will be the name used in output" },
           { "name": "bucket", "optionName": "bucket", "title": "Bucket", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the name of the S3 bucket." },
           { "name": "key", "optionName": "key", "title": "Key", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the key for the object in S3." },
-          { "name": "file", "optionName": "file", "title": "File", "type": "text", "required": true, "serverDataBindings": true, "help": "Provide the name of input which is used for file upload." },
           { "name": "contentType", "optionName": "contentType", "title": "Content Type", "type": "text", "required": false, "serverDataBindings": true, "help": "Content type." },
           { "name": "contentDisposition", "optionName": "contentDisposition", "title": "Content Disposition", "type": "text", "required": false, "serverDataBindings": true, "help": "Content type." },
           { "name": "endpoint", "optionName": "endpoint", "title": "Custom Endpoint", "type": "text", "required": false, "defaultValue": "","serverDataBindings": true, "help": "Enter the custom endpoint for the signed URL." }
           { "name": "forcePathStyle", "optionName": "forcePathStyle", "title": "Force Path Style", "defaultValue": false, "type": "boolean" }
+        ]
+      },
+      {
+        "group" : "File details",
+        "variables" : [
+          { "name": "file", "optionName": "file", "title": "File", "type": "text", "required": true, "serverDataBindings": true, "help": "Provide the name of input or path to file." },
+          { "name": "useFilePath", "optionName": "useFilePath", "title": "Use file path", "defaultValue": true, "type": "boolean", "help": "Check to use file path." }
         ]
       },
       {
