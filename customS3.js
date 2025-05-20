@@ -56,7 +56,7 @@ exports.s3_put_object = async function (options) {
     const secretAccessKey = this.parseRequired(options.secretAccessKey, 'string', 'SecretAccessKey is required.');
     const region = this.parseOptional(options.region, 'string', 'us-east-1');
     const ContentDisposition = this.parseOptional(options.contentDisposition, 'string', undefined);
-    let endpoint = `https://s3.${region}.amazonaws.com`;
+    const endpoint = `https://s3.${region}.amazonaws.com`;
     const forcePathStyle = this.parseOptional(options.forcePathStyle, 'boolean', false);
     const useFilePath = this.parseOptional(options.useFilePath, 'boolean', false);
     let config = { endpoint: endpoint, credentials: { accessKeyId, secretAccessKey }, region, signatureVersion: 'v4', forcePathStyle: forcePathStyle };
@@ -82,11 +82,21 @@ exports.s3_put_object = async function (options) {
     try {
 
         let result = await s3.send(command);
-        result.Location = endpoint;
-        result.Key = Key;
+        let url;
+        if (forcePathStyle || Provider === "custom") {
+            // path-style or custom endpoint: https://endpoint/bucket/key
+            url = `${endpoint.replace(/\/$/, '')}/${Bucket}/${encodeURIComponent(Key)}`;
+        } else {
+            // virtual-hosted–style: https://bucket.s3.region.amazonaws.com/key
+            url = `https://${Bucket}.s3.${region}.amazonaws.com/${encodeURIComponent(Key)}`;
+        }
 
-
-        return result;
+        return {
+            ...result,
+            url,
+            bucket: Bucket,
+            key: Key
+        };
     } catch (error) {
         throw new Error(`Failed to upload file to S3: ${error}`);
     }
