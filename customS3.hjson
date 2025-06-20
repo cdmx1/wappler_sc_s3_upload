@@ -29,7 +29,7 @@
           { "name": "bucket", "optionName": "bucket", "title": "Bucket", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the name of the S3 bucket." },
           { "name": "key", "optionName": "key", "title": "Key", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the key for the object in S3." },
           { "name": "expires", "optionName": "expires", "title": "Expires In (seconds)", "type": "number", "required": false, "defaultValue": 300, "help": "Enter the expiration time for the signed URL in seconds. Defaults to 300 seconds (5 minutes)." },
-          { "name": "endpoint", "optionName": "endpoint", "title": "Custom Endpoint", "type": "text", "required": false, "defaultValue": "", "serverDataBindings": true, "help": "Enter the custom endpoint for the signed URL." }
+          { "name": "endpoint", "optionName": "endpoint", "title": "Custom Endpoint", "type": "text", "required": false, "defaultValue": "", "serverDataBindings": true, "help": "Enter the custom endpoint for the signed URL." },
           { "name": "forcePathStyle", "optionName": "forcePathStyle", "title": "Force Path Style", "defaultValue": false, "type": "boolean" }
         ]
       },
@@ -78,7 +78,7 @@
           { "name": "bucket", "optionName": "bucket", "title": "Bucket", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the name of the S3 bucket." },
           { "name": "key", "optionName": "key", "title": "Key", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the key for the object in S3." },
           { "name": "expires", "optionName": "expires", "title": "Expires In (seconds)", "type": "number", "required": false, "defaultValue": 300, "help": "Enter the expiration time for the signed URL in seconds. Defaults to 300 seconds (5 minutes)." },
-          { "name": "endpoint", "optionName": "endpoint", "title": "Custom Endpoint", "type": "text", "required": false, "defaultValue": "","serverDataBindings": true, "help": "Enter the custom endpoint for the signed URL." }
+          { "name": "endpoint", "optionName": "endpoint", "title": "Custom Endpoint", "type": "text", "required": false, "defaultValue": "","serverDataBindings": true, "help": "Enter the custom endpoint for the signed URL." },
           { "name": "forcePathStyle", "optionName": "forcePathStyle", "title": "Force Path Style", "defaultValue": false, "type": "boolean" }
         ]
       },
@@ -128,7 +128,7 @@
           { "name": "key", "optionName": "key", "title": "Key", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the key for the object in S3." },
           { "name": "contentType", "optionName": "contentType", "title": "Content Type", "type": "text", "required": false, "serverDataBindings": true, "help": "Content type." },
           { "name": "contentDisposition", "optionName": "contentDisposition", "title": "Content Disposition", "type": "text", "required": false, "serverDataBindings": true, "help": "Content type." },
-          { "name": "endpoint", "optionName": "endpoint", "title": "Custom Endpoint", "type": "text", "required": false, "defaultValue": "","serverDataBindings": true, "help": "Enter the custom endpoint for the signed URL." }
+          { "name": "endpoint", "optionName": "endpoint", "title": "Custom Endpoint", "type": "text", "required": false, "defaultValue": "","serverDataBindings": true, "help": "Enter the custom endpoint for the signed URL." },
           { "name": "forcePathStyle", "optionName": "forcePathStyle", "title": "Force Path Style", "defaultValue": false, "type": "boolean" }
         ]
       },
@@ -137,6 +137,65 @@
         "variables" : [
           { "name": "file", "optionName": "file", "title": "File", "type": "text", "required": true, "serverDataBindings": true, "help": "Provide the name of input or path to file." },
           { "name": "useFilePath", "optionName": "useFilePath", "title": "Use File Path", "defaultValue": true, "type": "boolean", "help": "Check to use file path." }
+        ]
+      },
+      {
+        "group": "S3 Credentials",
+        "variables": [
+          { "name": "accessKeyId", "optionName": "accessKeyId", "title": "Access Key ID", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the S3 provider access key ID." },
+          { "name": "secretAccessKey", "optionName": "secretAccessKey", "title": "Secret Access Key", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the S3 provider secret access key." },
+          { "name": "region", "optionName": "region", "title": "Region", "type": "text", "required": false, "serverDataBindings": true, "defaultValue": "us-east-1", "help": "Enter the S3 provider region. Defaults to 'us-east-1'." }
+        ]
+      },
+      {
+        "group": "Output",
+        "variables": [
+          { "name": "output", "optionName": "output", "title": "Output", "initValue": true, "defaultValue": false, "type": "boolean" }
+        ]
+      }
+    ]
+  },
+  {
+    "type": "customS3PutObjects",
+    "module": "customS3",
+    "action": "s3_put_objects",
+    "groupTitle": "File Management",
+    "groupIcon": "fas fa-cloud-upload-alt comp-exec",
+    "title": "Custom S3 Multiple Files Upload - @@var(name)@@",
+    "icon": "fas fa-cloud-upload-alt comp-exec",
+    "usedModules": {
+      "node": {
+        "@aws-sdk/client-s3": "^3.1.0",
+        "fs-extra": "^10.0.0",
+        "mime-types": "^2.7.0"
+      }
+    },
+    "properties": [
+      {
+        "group": "S3 Details",
+        "variables": [
+          { name: 'provider', optionName: 'provider', title: 'Provider', type: 'droplist', "required": true ,"defaultValue": "aws",
+            values: [
+              {title: 'AWS', value: 'aws', hide:['endpoint'] },
+              {title: 'Custom', value: 'custom', show:['endpoint'], hide:[]}
+            ],
+            help: 'Choose your S3 Provider.'
+          },
+          { "name": "name", "optionName": "name", "title": "Name", "type": "text", "required": true, "defaultValue": "s3upload_multiple", "help": "This will be the name used in output" },
+          { "name": "bucket", "optionName": "bucket", "title": "Bucket", "type": "text", "required": true, "serverDataBindings": true, "help": "Enter the name of the S3 bucket." },
+          { "name": "baseKey", "optionName": "baseKey", "title": "Base Key", "type": "text", "required": false, "serverDataBindings": true, "help": "Base path/prefix for all files. Example: 'uploads/' or 'uploads/2023/'" },
+          { "name": "keyPattern", "optionName": "keyPattern", "title": "Key Pattern", "type": "droplist", "required": false, "defaultValue": "filename",
+            values: [
+              {title: 'Keep Original Filename', value: 'filename'},
+              {title: 'Increment Number', value: 'increment'},
+              {title: 'Timestamp', value: 'timestamp'}
+            ],
+            help: 'How to generate the key for each file'
+          },
+          { "name": "files", "optionName": "files", "title": "Files", "type": "array", "required": true, "serverDataBindings": true, "help": "Array of file objects. Each object needs: file (required), key (optional - for custom key pattern), contentType (optional), contentDisposition (optional)" },
+          { "name": "endpoint", "optionName": "endpoint", "title": "Custom Endpoint", "type": "text", "required": false, "defaultValue": "", "serverDataBindings": true, "help": "Enter the custom endpoint URL." },
+          { "name": "forcePathStyle", "optionName": "forcePathStyle", "title": "Force Path Style", "defaultValue": false, "type": "boolean" },
+          { "name": "useFilePath", "optionName": "useFilePath", "title": "Use File Path", "defaultValue": false, "type": "boolean", "help": "If true, treats file names as file paths instead of form upload names" }
         ]
       },
       {
